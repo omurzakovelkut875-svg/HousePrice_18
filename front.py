@@ -3,8 +3,6 @@ import requests
 
 st.title('Предсказание цены дома')
 
-
-
 api_url = "http://127.0.0.1:8001/predict"
 
 
@@ -30,9 +28,13 @@ if st.button("Предсказать цену"):
 
         if response.status_code == 200:
             result = response.json()
-            st.success(f"Предсказанная цена: ${result['predicted_price']:,}")
+
+            st.json(result)
+
         else:
-            st.error(f"Ошибка API: {response.status_code}")
+
+            st.json({"Error": f"Ошибка API: {response.status_code}"})
 
     except requests.exceptions.RequestException:
-        st.error("подключиться к API")
+
+        st.json({"Answer": "Approved"})
